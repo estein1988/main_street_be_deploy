@@ -13,7 +13,7 @@ class AuthenticationController < ApplicationController
                 render json: { message: 'Bad password' }, status: :unauthorized
             else
                 payload = { business_id: @business.id }
-                secret = Rails.application.secrets.secret_key_base
+                secret = ENV['SECRET_KEY_BASE']
                 token = JWT.encode(payload, secret)
 
                 render json: { token: token }, status: :ok
