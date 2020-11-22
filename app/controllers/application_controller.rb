@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
             render json: { message: 'No token' }, status: :forbidden
         else
             token = auth_header.split(' ').last
-            secret = 'top secret password'
+            secret = Rails.application.secrets.secret_key_base
             begin
                 decoded_token = JWT.decode(token, secret)
                 payload = decoded_token.first
